@@ -18,4 +18,4 @@ if ($handle = opendir($srcRoot)) {
     closedir($handle);
 }
 
-$phar->setStub($phar->createDefaultStub("app.php"));
+$phar->setStub($phar->createDefaultStub("index.php"));
