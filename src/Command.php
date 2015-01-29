@@ -4,7 +4,7 @@
  * @copyright 2015 Felipe Maziero
  */
 
-class Command
+abstract class Command
 {
 	private $version = 'v0.0.1';
 	protected $colors;
@@ -18,19 +18,7 @@ class Command
 			'yellow' => "\033[33m"
 		];
 	}
-
-	public function __call($methodName, $arguments)
-	{
-		if (!method_exists($this, $methodName)) {
-			$this->error('Command not found');
-		}
-	}
-
-	public function version()
-	{
-		$this->println("\nAgile Deploy Tool {$this->version}\n");
-	}
-
+	
 	private function output($color, $string)
 	{
 		echo "{$this->colors->$color}{$string}\n";

@@ -6,15 +6,21 @@
  * Entry point
  */
 
-require_once "Command.php";
+require_once "CommandManager.php";
 
-$options   = getopt("v");
-$method    = (isset($argv[1])) ? $argv[1] : false;
-$arguments = (isset($argv[2])) ? $argv[2] : false;
+try {
+	$manager = new CommandManager();
+	$manager->captureCommandLine($argv, getopt("vh"));
 
-$command = new Command();
-if (isset($options['v'])) {
-	return $command->version();
+	if (isset($options['v'])) {
+		echo 'Version';
+	} elseif (isset($options['h'])) {
+		echo 'Help';
+	}
+} catch (Exception $e) {
+	echo "\033[31m";
+	echo $e->getMessage();
+	echo "\n";
+	debug_print_backtrace();
+	exit;
 }
-
-return $command->$method($arguments);
