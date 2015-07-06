@@ -5,6 +5,7 @@
  */
 
 require_once "ManagerInterface.php";
+require_once "CommandException.php";
 
 class CommandManager implements ManagerInterface
 {
@@ -37,7 +38,7 @@ class CommandManager implements ManagerInterface
         }
         $arguments = array_values($arguments);
         if (!isset($arguments[0]) && !$this->hasOptions()) {
-            throw new Exception("I don't know what are you talking about boy, try to use: \n\n\tagile -h\n");
+            throw new CommandException("I don't know what are you talking about boy, try to use: \n\n\tagile -h\n", 0);
         } elseif (isset($arguments[0])) {
             $this->commandName = $arguments[0];
     	}

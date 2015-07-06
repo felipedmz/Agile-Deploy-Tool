@@ -6,8 +6,8 @@
  * Entry point
  */
 
-require_once "CommandManager.php";
 require_once "Info.php";
+require_once "CommandManager.php";
 
 try {
 
@@ -18,11 +18,17 @@ try {
     if (in_array('v', $manager->getOptions())) $info->version();
     elseif (in_array('h', $manager->getOptions())) $info->help();
 
+} catch (CommandException $c) {
+    echo "\n";
+    echo "\033[31m";
+    echo $c->getMessage();
+    echo "\n";
+    exit;
 } catch (Exception $e) {
     echo "\n";
 	echo "\033[31m";
 	echo $e->getMessage();
 	echo "\n";
-	debug_print_backtrace();
+    echo $e->getTraceAsString();
 	exit;
 }
