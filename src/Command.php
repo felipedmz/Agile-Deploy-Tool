@@ -21,7 +21,7 @@ abstract class Command
 	
 	private function output($color, $string)
 	{
-		echo "{$this->colors->$color}{$string}\n";
+		echo "\n{$this->colors->$color}{$string}\n\n";
 	}
 
 	protected function println($string)
@@ -43,4 +43,9 @@ abstract class Command
 	{
 		return $this->output('red', $string);
 	}
+
+    protected function getVersion()
+    {
+        return $this->version;
+    }
 }

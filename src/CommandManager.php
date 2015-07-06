@@ -14,9 +14,10 @@ class CommandManager implements ManagerInterface
 
 	public function captureCommandLine($arguments, $options)
 	{
-		$this->setCommandName($arguments);
-		$this->setArguments($arguments);
-		$this->setOptions($options);
+        unset($arguments[0]); // own file
+        $this->setOptions($options);
+        $this->setArguments($arguments);
+        $this->setCommandName($arguments);
 	}
 
 	public function factory($className)
@@ -31,13 +32,15 @@ class CommandManager implements ManagerInterface
 
     private function setCommandName($arguments)
     {
-    	if (!isset($arguments[1])) {
-    		throw new Exception("I don't know what are you talking about.");
+        foreach($arguments as $key => $arg) {
+            if (strpos($arg, '-') !== false) unset($arguments[$key]);
+        }
+        $arguments = array_values($arguments);
+        if (!isset($arguments[0]) && !$this->hasOptions()) {
+            throw new Exception("I don't know what are you talking about boy, try to use: \n\n\tagile -h\n");
+        } elseif (isset($arguments[0])) {
+            $this->commandName = $arguments[0];
     	}
-    	var_dump($arguments);
-    	die();
-
-        $this->commandName = $commandName;
     }
 
     public function getArguments()
@@ -47,16 +50,28 @@ class CommandManager implements ManagerInterface
 
     private function setArguments($arguments)
     {
-        $this->arguments = $arguments;
+        unset($arguments[1]);
+        $this->arguments = array_values($arguments);
     }
 
     public function getOptions()
     {
-        return $this->options;
+        return array_keys($this->options);
     }
 
     private function setOptions($options)
     {
         $this->options = $options;
+    }
+
+    public function hasOptions()
+    {
+        return count($this->getOptions()) > 0;
+    }
+
+    public function hasCommand()
+    {
+        $command = $this->getCommandName();
+        return !empty($command);
     }
 }

@@ -7,17 +7,19 @@
  */
 
 require_once "CommandManager.php";
+require_once "Info.php";
 
 try {
+
+    $info    = new Info();
 	$manager = new CommandManager();
 	$manager->captureCommandLine($argv, getopt("vh"));
 
-	if (isset($options['v'])) {
-		echo 'Version';
-	} elseif (isset($options['h'])) {
-		echo 'Help';
-	}
+    if (in_array('v', $manager->getOptions())) $info->version();
+    elseif (in_array('h', $manager->getOptions())) $info->help();
+
 } catch (Exception $e) {
+    echo "\n";
 	echo "\033[31m";
 	echo $e->getMessage();
 	echo "\n";

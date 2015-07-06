@@ -6,16 +6,16 @@
 
 require_once "Command.php";
 
-class Info
+class Info extends Command
 {
 	public function version()
 	{
-		$this->println("\nAgile Deploy Tool {$this->version}\n");
+		$this->println("Agile Deploy Tool® {$this->getVersion()}");
 	}
 
 	public function help()
 	{
-		$this->warning("\nNOT IMPLEMENTED\n");	
+		$this->warning("NOT IMPLEMENTED");
 	}
 }
 	
