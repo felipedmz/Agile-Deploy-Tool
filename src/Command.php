@@ -18,10 +18,10 @@ abstract class Command
 			'yellow' => "\033[33m"
 		];
 	}
-	
+
 	private function output($color, $string)
 	{
-		echo "\n{$this->colors->$color}{$string}\n\n";
+		echo "{$this->colors->$color}{$string}\n";
 	}
 
 	protected function println($string)

@@ -38,7 +38,7 @@ class CommandManager implements ManagerInterface
         }
         $arguments = array_values($arguments);
         if (!isset($arguments[0]) && !$this->hasOptions()) {
-            throw new CommandException("I don't know what are you talking about boy, try to use: \n\n\tagile -h\n", 0);
+            throw new CommandException("I don't know what are you talking about, try to use: \nagile -h", 0);
         } elseif (isset($arguments[0])) {
             $this->commandName = $arguments[0];
     	}
@@ -59,6 +59,11 @@ class CommandManager implements ManagerInterface
     {
         return array_keys($this->options);
     }
+
+	public function hasOption($option = '')
+	{
+		return in_array($option, $this->getOptions());
+	}
 
     private function setOptions($options)
     {

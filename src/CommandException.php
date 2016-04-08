@@ -6,5 +6,9 @@
 
 class CommandException extends Exception
 {
-
+    public function getPrettyMessage()
+    {
+        echo "\n\033[31m{$this->getMessage()}\n\n";
+        exit;
+    }
 }

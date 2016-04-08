@@ -18,4 +18,3 @@ class Info extends Command
 		$this->warning("NOT IMPLEMENTED");
 	}
 }
-	
